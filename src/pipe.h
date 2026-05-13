@@ -9,6 +9,7 @@
 typedef struct {
     int height;
     int pos_x;
+    bool touched;
 } Pipe;
 extern Pipe pipes[PIPES_ARRAY];
 

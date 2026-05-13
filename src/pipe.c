@@ -1,5 +1,7 @@
 #include <raylib.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include "state.h"
 #include "pipe.h"
 #include "bird.h"
 
@@ -9,6 +11,19 @@ void init_pipes() {
     for (int i=0; i<PIPES_ARRAY; i++) {
         pipes[i].height = GetRandomValue(1, HEIGHT-250);
         pipes[i].pos_x = 500 + i*80 + i*GAP_BETWEEN_PIPES;
+        pipes[i].touched = false;
+    }
+}
+
+void add_score() {
+    for (int i=0; i<PIPES_ARRAY; i++) {
+        if (CheckCollisionCircleRec(bird.position, 28, (Rectangle){pipes[i].pos_x, pipes[i].height, 80, GAP})) {
+            if (!pipes[i].touched) {
+                pipes[i].touched = true;
+                score++;
+            }
+            break;
+        }
     }
 }
 
@@ -37,5 +52,7 @@ void move_pipes() {
                 pipes[i] = new_pipes[i];
             }
         }
+
+        add_score();
     }
 }

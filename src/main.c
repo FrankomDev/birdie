@@ -1,3 +1,4 @@
+#include <iso646.h>
 #include <string.h>
 #include <raylib.h>
 #include <stdbool.h>
@@ -19,7 +20,13 @@ int main() {
             move_pipes();
             move_bird();
         } else {
-            if (IsKeyPressed(KEY_ENTER)) {}
+            if (IsKeyPressed(KEY_ENTER)) {
+                score = 0;
+                bird.position.y = 200;
+                bird.hit = false;
+                init_pipes();
+                end = false;
+            }
         }
 
         BeginDrawing();
@@ -28,6 +35,11 @@ int main() {
         if (!end) {
             draw_pipes();
             draw_bird();
+            char score_str[3];
+            sprintf(score_str, "%d", score);
+            int width = MeasureText(score_str, 40);
+            DrawText(score_str, GetScreenWidth()/2-width/2, 100, 40, BLACK);
+
         } else {
             const char* text = "Game Over!";
             int width = MeasureText(text, 40);

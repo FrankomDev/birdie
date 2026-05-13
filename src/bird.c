@@ -5,7 +5,7 @@
 #include "state.h"
 
 Bird bird = {
-    .position = {10, 200},
+    .position = {30, 200},
     .hit = false
 };
 
@@ -38,7 +38,7 @@ void move_bird() {
 
         if (clicked) {
             click_delay += GetFrameTime();
-            if (click_delay >= 0.25f) {
+            if (click_delay >= 0.3f) {
                 clicked = false;
                 click_delay = 0.0f;
             }
@@ -46,7 +46,7 @@ void move_bird() {
                 bird.position.y -= 7;
             }
         } else
-            bird.position.y += 4.5f;
+            bird.position.y += 5;
 
         if (check_collision_with_pipes()) {
             bird.hit = true;
